@@ -26,65 +26,8 @@
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div class="">
-      <!-- Верхний блок с логотипом, поиском, избранным и корзиной -->
-      <header class="bg-white flex justify-between items-center py-[20px] px-[30px] mb-[20px] shadow-md rounded-bl-[20px] rounded-br-[20px]">
-        <!-- Логотип -->
-        <img src="{% static 'icons/Logo.svg' %}" alt="">
-
-        <!-- Поиск -->
-        <form class="flex w-[650px]">
-            <input type="text" name="q" placeholder="Поиск по сайту..." class="w-full rounded-tl-[15px] rounded-bl-[15px] border border-[#BCBCBC] p-[10px] pl-[20px] focus:outline-none text-base">
-            <button class="bg-[#00BEA2] text-white px-[20px] rounded-br-[15px] rounded-tr-[15px] hover:bg-[#05B197] transition-all">Найти</button>
-        </form>
-
-        <!-- Навигация -->
-        <div class="flex gap-[40px] items-center">
-            <!-- <a href="#"></a> -->
-             <div class="w-[32px] h-[32px] bg-gray-400 rounded-full"></div>
-            <!-- <a href="#"></a> -->
-             <div class="w-[32px] h-[32px] bg-gray-400 rounded-full"></div>
-            <!-- <a href="#"></a> -->
-             <div class="w-[32px] h-[32px] bg-gray-400 rounded-full"></div>
-        </div>
-      </header>
-
-      <div class="wrapper">
-        <nav class="bg-white rounded-[20px] shadow-md">
-          <ul class="flex py-[15px] px-[5px] gap-[5px]">
-            <li class="">
-                <a href="#" class=" rounded-[15px] font-semibold bg-[#EEEEEE] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Главная</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Каталог</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Акции</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Обучение</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Бренды</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Новости</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Как купить</a>
-            </li>
-            <li class="">
-                <a href="#" class=" rounded-[15px] py-[12px] px-[20px] hover:bg-gray-50 transition-all">Контакты</a>
-            </li>
-          </ul>
-        </nav>
-        <main>
-            {% block content %} {% endblock %}
-        </main>
-      </div>
-      <!-- Основное меню -->
-      
-      
-  </div>
+  <main class="flex items-center justify-center h-[100vh]">
+    {% block content %}{% endblock %}
+  </main>
 </body>
 </html>

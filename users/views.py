@@ -27,5 +27,7 @@ def register(request):
 
         return render(request, "users/base.html", {"error": error})
 
-    return render(request, "users/base.html")
+    return render(request, "users/register.html")
 
+def login(request):
+    return render(request, "users/login.html")
