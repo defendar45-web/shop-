@@ -1,0 +1,79 @@
+{%  load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Подключаем Inter*/
+        @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="container mx-auto p-6">
+
+      <!-- Верхний блок с логотипом, поиском, избранным и корзиной -->
+      <header class="flex items-center justify-between gap-6 mb-8">
+
+          <div class="flex items-center gap-5">
+              <img src="{% static 'icons/Logo.svg'  %}" alt="Картинка зуба" class="w-16 h-16 object-contain" />
+              <p class="text-gray-700 font-medium text-2xl">МастерФарм</p>
+          </div>
+
+          <form class="flex border border-gray-300 rounded-md overflow-hidden shadow-sm" action="/search" method="get">
+           <input 
+             class="w-64 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+             type="search" 
+             name="q" 
+             placeholder="Поиск по сайту..."
+            />
+           <button 
+             type="submit" 
+             class="bg-blue-600 text-white px-5 font-semibold hover:bg-blue-700 transition"
+           >
+             Найти
+           </button>
+          </form>
+
+          <nav class="flex gap-6 text-blue-600 font-medium text-lg">
+              <a href="#" class="hover:underline">Избранное</a>
+              <a href="#" class="hover:underline">Корзина</a>
+          </nav>
+
+      </header>
+
+      <!-- Основное меню -->
+      <nav class="mb-8 border-b border-gray-300 pb-4">
+          <ul class="flex justify-between max-w-4xl mx-auto text-gray-700 font-semibold text-lg">
+              <li><a href="#" class="hover:text-blue-600 transition">Каталог</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Акции</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Обучение</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Бренды</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Новости</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Как купить</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Контакты</a></li>
+          </ul>
+      </nav>
+
+      <!-- Вертикальное меню -->
+      <nav class=" flex  ">
+              <ul class="flex flex-col gap-10 text-gray-700 font-semibold text-lg border border-gray-300 rounded-md p-6 shadow-md bg-white">
+              <li class="border border-red-500"><a href="#" class="hover:text-blue-600 transition">Акции</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Обучение</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Бренды</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Новости</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Как купить</a></li>
+              <li><a href="#" class="hover:text-blue-600 transition">Контакты</a></li>
+          </ul>
+
+      </nav>
+      
+  </div>
+</body>
+</html>
