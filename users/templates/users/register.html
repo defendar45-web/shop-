@@ -1,20 +1,16 @@
 {% extends 'users/base.html' %}
 
+{% block form_title %}
+Регистрация
+{% endblock %}
 
-
-{% block content %}
-
-
-
-    <div class="flex flex-col">
+{% block inputs %}
      <input name="username" placeholder="Имя пользователя" type="text" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-[#05B197] focus:border-2">
      <input name="email" placeholder="Email" type="email" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-[#05B197] focus:border-2">
      <input name="password" placeholder="Пароль" type="password" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-[#05B197] focus:border-2">
-     <button type="submit" class="font-semibold bg-[#00BEA2] p-2 text-white cursor-pointer rounded-md mt-3 hover:bg-[#05B197] transition-all"> Регистрация  </button>
-    </div>
-
-
 {% endblock %}
 
-
+{% block button %}
+Регистрация
+{% endblock %}
 

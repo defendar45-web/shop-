@@ -1,44 +1,50 @@
-{%  load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Подключаем Inter*/
-        @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% block title %}{% endblock %}</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<style>
+			/* Подключаем Inter*/
+			@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+			body {
+				font-family: 'Inter', sans-serif;
+			}
 
-        .wrapper {
-            max-width: 1015px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-        }
-
-    </style>
-</head>
-<body class="bg-gray-100 text-gray-800">
-  <main class="flex items-center justify-center h-[100vh]">
-    {% block content %}{% endblock %}
-  </main>
- <form method="POST" class="flex flex-col gap-5 p-4 m-4 shadow-md rounded-md max-w-[350px]">
-            {% csrf_token %}
-            <h2 class="font-semibold text-2xl text-center">{% block form_title %}{% endblock %}</h2>
-            <div class="flex flex-col gap-2">
-                {% block inputs %}{% endblock %}
-            </div>
-            <button type="submit" class="font-semibold bg-indigo-500 p-2 text-white cursor-pointer rounded-md mt-3 hover:bg-indigo-600">{% block button %}{% endblock %}</button>
-            {% if error %}
-                <p class="text-red-500 text-sm text-center">{{ error }}</p>
-            {% endif %}
-        </form>
-</body>
+			.wrapper {
+				max-width: 1015px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body class="bg-gray-100 text-gray-800">
+		<main class="flex items-center justify-center h-[100vh]">
+			<form
+				method="POST"
+				class="flex flex-col gap-5 p-4 m-4 shadow-md rounded-md max-w-[350px]"
+			>
+				{% csrf_token %}
+				<h2 class="font-semibold text-2xl text-center">
+					{% block form_title %}{% endblock %}
+				</h2>
+				<div class="flex flex-col gap-2">{% block inputs %}{% endblock %}</div>
+				<button
+					type="submit"
+					class="font-semibold bg-[#00BEA2] p-2 text-white cursor-pointer rounded-md mt-3 hover:bg-[#00BEA2]"
+				>
+					{% block button %}{% endblock %}
+				</button>
+				{% if error %}
+				<p class="text-red-500 text-sm text-center">{{ error }}</p>
+				{% endif %}
+			</form>
+		</main>
+	</body>
 </html>

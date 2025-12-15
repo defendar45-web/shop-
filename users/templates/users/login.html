@@ -1,7 +1,15 @@
 {% extends 'users/base.html' %}
 
-{% block content %}
-<form>
-  <h2>Вход</h2>
-</form>
+
+{% block form_title %}
+Вход
+{% endblock %}
+
+{% block inputs %}
+     <input name="username" placeholder="Имя пользователя" type="text" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-[#05B197] focus:border-2">
+     <input name="password" placeholder="Пароль" type="password" class="border border-gray-300 p-2 rounded-md focus:outline-none focus:border-[#05B197] focus:border-2">
+{% endblock %}
+
+{% block button %}
+Войти
 {% endblock %}
