@@ -4,7 +4,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>{% block title %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Подключаем Inter*/
@@ -29,5 +29,16 @@
   <main class="flex items-center justify-center h-[100vh]">
     {% block content %}{% endblock %}
   </main>
+ <form method="POST" class="flex flex-col gap-5 p-4 m-4 shadow-md rounded-md max-w-[350px]">
+            {% csrf_token %}
+            <h2 class="font-semibold text-2xl text-center">{% block form_title %}{% endblock %}</h2>
+            <div class="flex flex-col gap-2">
+                {% block inputs %}{% endblock %}
+            </div>
+            <button type="submit" class="font-semibold bg-indigo-500 p-2 text-white cursor-pointer rounded-md mt-3 hover:bg-indigo-600">{% block button %}{% endblock %}</button>
+            {% if error %}
+                <p class="text-red-500 text-sm text-center">{{ error }}</p>
+            {% endif %}
+        </form>
 </body>
 </html>
