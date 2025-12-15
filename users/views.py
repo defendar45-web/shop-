@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login as user_login, logout
 from django.shortcuts import render, redirect
 
 from users.models import CustomUser
@@ -30,4 +31,20 @@ def register(request):
     return render(request, "users/register.html")
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+            user = authenticate(request, username=username, password=password)
+
+            if user:
+                user_login (request, user)
+                return redirect("home")
+            else:
+                error = "Неверный логин или пароль"
+        else:
+            error = "Заполните поля"
+
+        return render(request, "users/base.html", {"error": error})
     return render(request, "users/login.html")

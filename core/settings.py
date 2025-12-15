@@ -37,11 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_icons',
+    'channels',
 
     'home',
     'base',
     'users',
 ]
+
+DJANGO_ICONS = {
+    "ICONS": {
+        "user": {"name": "fa-regular fa-user"},
+
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
