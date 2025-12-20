@@ -1,29 +1,14 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
-class ProductCategory(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    slug = models.SlugField(null=False, unique=True)
     image = models.ImageField(upload_to='products/', blank=True)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(self.name)
-
-            if not base_slug:
-                base_slug = self.name
-
-            slug = base_slug
-            counter = 1
-
-            while ProductCategory.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-
-            self.slug = slug
-
-        super().save(*args, **kwargs)
-
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):
@@ -31,7 +16,7 @@ class Product(models.Model):
     price = models.FloatField()
     description = models.TextField()
     slug = models.SlugField(max_length=100, unique=True , null=True,blank=True)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="products/", null=True, blank=True)
 
     def get_image(self):
