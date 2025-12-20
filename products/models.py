@@ -3,12 +3,25 @@ from django.utils.text import slugify
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True , null=True,blank=True)
-    image = models.ImageField(upload_to='products/', null=True, blank=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    image = models.ImageField(upload_to='products/', blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            base_slug = slugify(self.name)
+
+            if not base_slug:
+                base_slug = self.name
+
+            slug = base_slug
+            counter = 1
+
+            while ProductCategory.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
 
