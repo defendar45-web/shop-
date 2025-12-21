@@ -1,9 +1,14 @@
 from django.shortcuts import render
-from .models import *
+from products.models import Category
+
+
+
+
 
 def categories(request):
     return render(request, 'products/categories.html',{
-        "categories":ProductCategory.objects.all()
+        "categories":Category.objects.all(),
+
     }
         )
 
