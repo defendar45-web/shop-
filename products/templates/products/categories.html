@@ -1,33 +1,32 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base.html' %} {% block content %}
+<div class="container py-8">
+	<h1 class="text-3xl font-semibold mb-6">Категории</h1>
+	<ul class="grid grid-cols-3 gap-2">
+		{% for category in categories %}
+		<a href="{% url 'products_by_category' slug=category.slug %}">
+			<li>
+				<div
+					class="bg-white p-5 rounded-lg h-[250px] flex flex-col items-center justify-end"
+				>
+					{% if category.image %}
+					<img
+						class="w-[150px] h-[150px] mx-auto"
+						src="{{ category.get_image }}"
+						alt=""
+					/>
+					{% else %}
+					<p class="text-[12px] text-gray text-center mb-[60px]">
+						Изображение отсутствует
+					</p>
+					{% endif %}
+					<h3 class="text-center text-[14px] font-semibold mt-[20px] uppercase">
+						{{ category.name }}
+					</h3>
+				</div>
+			</li>
+		</a>
 
-
-{% block content %}
-<div class="container mx-auto py-8">
-    <h1 class="text-3xl font-semibold mb-6">Категории</h1>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {% for category in categories %}
-            <a href="{% url 'products_by_category' slug=category.slug %}">
-            <li class="rounded-lg shadow-md overflow-hidden relative min-h-[250px]">  {# Добавлено: relative min-h-[400px] #}
-            <div class="relative h-full flex flex-col justify-between">  {# Добавлено: relative,  justify-between #}
-
-                {% if category.image %}
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ category.get_image }}');object-fit: contain"" ></div>
-                <div class="absolute inset-0 bg-black opacity-40"></div>   {# Затемнение фона #}
-                {% else %}
-                <div class="absolute inset-0 bg-gray-100 flex items-center justify-center">
-                    <p class="text-gray-500">Изображение отсутствует</p>
-                </div>
-                {% endif %}
-
-                <div class="relative p-4 text-white z-10">  {# Добавлено: relative, text-white, z-10 #}
-                    <h2 class="text-xl font-semibold mb-2">{{ category.name }}</h2>
-                </div>
-
-
-            </div>
-        </li>
-            </a>
-        {% endfor %}
-    </ul>
+		{% endfor %}
+	</ul>
 </div>
 {% endblock %}
