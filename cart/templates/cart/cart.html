@@ -1,0 +1,63 @@
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-semibold mb-6 text-gray-800">Ваша корзина</h1>
+
+        {% if cart_items %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <ul class="divide-y divide-gray-200">
+                    {% for item in cart_items %}
+                        <li class="flex items-center py-4 px-6">
+                            <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="w-24 h-24 object-cover rounded-md mr-4 shadow-sm">
+                            <div class="flex-grow">
+                                <h2 class="text-lg font-medium text-gray-900">{{ item.product.name }}</h2>
+                                <p class="text-gray-600">{{ item.product.description|truncatechars:100 }}</p>
+                                <p class="text-gray-700 mt-1">Цена: {{ item.product.price }} ₽</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center border border-gray-300 rounded-md">
+                                    <button class="px-3 py-2 text-gray-600 hover:text-gray-800 focus:outline-none">-</button>
+                                    <span class="px-4 py-2 text-gray-700">{{ item.quantity }}</span>
+                                    <button class="px-3 py-2 text-gray-600 hover:text-gray-800 focus:outline-none">+</button>
+                                </div>
+                                <button class="text-red-500 hover:text-red-700 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="bg-gray-50 px-6 py-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-700 font-medium">Промежуточный итог:</span>
+                        <span class="text-gray-900 font-semibold">{{ subtotal }} ₽</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-700 font-medium">Скидка (20%):</span>
+                        <span class="text-green-600 font-semibold">- {{ discount }} ₽</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-700 font-medium">Доставка:</span>
+                        <span class="text-gray-900 font-semibold">15 ₽</span>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-gray-300 pt-4">
+                        <span class="text-lg font-bold text-gray-900">Итого:</span>
+                        <span class="text-xl font-extrabold text-indigo-600">{{ total_price }} ₽</span>
+                    </div>
+                    <div class="mt-6">
+                        <a href="#" class="block w-full bg-indigo-600 border border-transparent rounded-md py-3 px-4 text-center font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            Оформить заказ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                <p class="text-gray-600">Ваша корзина пуста. <a href="/" class="text-indigo-600 hover:text-indigo-800">Начните покупки!</a></p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
