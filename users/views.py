@@ -53,14 +53,14 @@ def login(request):
 
 @login_required
 def profile(request):
-    user = request.user
+   user = request.user
 
-    return render(request, 'users/profile.html', context={
+   return render(request, 'users/profile.html', context={
         'username': user.username,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
-    })
+})
 
 @login_required(login_url='login')
 def profile_edit(request):
@@ -82,7 +82,7 @@ def profile_edit(request):
 
             user.save()
 
-            return redirect('profile', username=user.username)
+            return redirect('profile')
 
         elif 'password_submit' in request.POST:
             current_password = request.POST['current_password']
