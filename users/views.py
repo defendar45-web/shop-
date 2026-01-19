@@ -1,4 +1,6 @@
-from django.contrib.auth import authenticate, login as user_login, logout
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as user_login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from users.models import CustomUser
@@ -48,3 +50,65 @@ def login(request):
 
         return render(request, "users/base.html", {"error": error})
     return render(request, "users/login.html")
+
+@login_required
+def profile(request):
+    user = request.user
+
+    return render(request, 'users/profile.html', context={
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    })
+
+@login_required(login_url='login')
+def profile_edit(request):
+    user = request.user
+
+    if request.method == 'POST':
+        if 'profile_submit' in request.POST:
+            first_name = request.POST['firstname']
+            if first_name:
+                user.first_name = first_name
+
+            last_name = request.POST['lastname']
+            if last_name:
+                user.last_name = last_name
+
+            email = request.POST['email']
+            if email:
+                user.email = email
+
+            user.save()
+
+            return redirect('profile', username=user.username)
+
+        elif 'password_submit' in request.POST:
+            current_password = request.POST['current_password']
+            new_password = request.POST['new_password']
+            confirm_password = request.POST['confirm_password']
+
+            if not user.check_password(current_password):
+                messages.error(request, "Current password is incorrect")
+
+            elif new_password != confirm_password:
+                messages.error(request, "New password and confirm password do not match")
+
+            else:
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)
+
+                return render(request, 'users/profile.html', context={
+                    'username': user.username,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'email': user.email,
+                })
+    return render(request, 'users/profile_edit.html', context={
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    })

@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100 py-12">
+    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-4xl flex flex-col md:flex-row">
+
+        <!-- Форма изменения пароля (слева на md и больше) -->
+        <div class="md:w-1/2 md:pr-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Изменить пароль</h3>
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="current_password" class="block text-gray-700 text-sm font-bold mb-2">Текущий пароль</label>
+                    <input type="password" id="current_password" name="current_password" placeholder="Текущий пароль"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="new_password" class="block text-gray-700 text-sm font-bold mb-2">Новый пароль</label>
+                    <input type="password" id="new_password" name="new_password" placeholder="Новый пароль"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="confirm_password" class="block text-gray-700 text-sm font-bold mb-2">Подтвердите новый пароль</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Подтвердите новый пароль"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <div class="flex justify-between">
+                    <a href="{% url 'profile' %}"
+                       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Отмена
+                    </a>
+                    <button name="password_submit" type="submit"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Изменить пароль
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Разделитель (отображается только на md и больше) -->
+        <div class="hidden md:block border-l border-gray-200"></div>
+
+        <!-- Форма редактирования профиля (справа на md и больше) -->
+        <div class="md:w-1/2 md:pl-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Редактировать профиль</h2>
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="firstname" class="block text-gray-700 text-sm font-bold mb-2">Имя</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="{{ first_name }}"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="lastname" class="block text-gray-700 text-sm font-bold mb-2">Фамилия</label>
+                    <input type="text" id="lastname" name="lastname" placeholder="{{ last_name }}"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="email" name="email" placeholder="{{ email }}"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Адрес</label>
+                    <input type="text" id="address" name="address" placeholder="Empty"
+                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <button name="profile_submit" type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Сохранить изменения
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
