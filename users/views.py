@@ -60,6 +60,7 @@ def profile(request):
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
+        'address': user.address,
 })
 
 @login_required(login_url='login')
@@ -80,6 +81,12 @@ def profile_edit(request):
             if email:
                 user.email = email
 
+            address = request.POST['address']
+            if address:
+                user.address = address
+
+      
+
             user.save()
 
             return redirect('profile')
@@ -90,10 +97,10 @@ def profile_edit(request):
             confirm_password = request.POST['confirm_password']
 
             if not user.check_password(current_password):
-                messages.error(request, "Current password is incorrect")
+                messages.error(request, "Неверный текущий пароль")
 
             elif new_password != confirm_password:
-                messages.error(request, "New password and confirm password do not match")
+                messages.error(request, "Новый пароль и пароль подтверждения не совпадают.")
 
             else:
                 user.set_password(new_password)
