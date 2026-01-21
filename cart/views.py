@@ -26,4 +26,29 @@ def add_to_cart(request, product_id):
         cart_item.save()
     return redirect('cart')
 
+@login_required(login_url='login')
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id)
+    item.delete()
+    return redirect('cart')
+
+
+@login_required(login_url='login')
+def change_quantity(request, item_id, action):
+    item = get_object_or_404(CartItem, id=item_id)
+
+    if action == 'increase':
+        item.quantity += 1
+        item.save()
+
+    elif action == 'decrease':
+       item.quantity -= 1
+
+       if item.quantity <= 0:
+           item.delete()
+       else:
+           item.save()
+
+    return redirect('cart')
+
 
