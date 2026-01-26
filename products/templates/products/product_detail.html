@@ -2,35 +2,58 @@
 
 {% block content %}
 
-<div class="container mx-auto px-4 py-8">
-  <div class="bg-white rounded-lg shadow-md overflow-hidden">
-    <div class="md:flex">
+<div class="min-h-screen bg-gray-100 py-10 px-4">
+  <div class="max-w-6xl mx-auto">
 
-      <div class="md:w-1/2 p-4">
-        <img src="{{ product.get_image }}" alt="{{ product.name }}" class="w-full h-auto object-cover rounded-lg">
-      </div>
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-      <div class="md:w-1/2 p-4">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ product.name }}</h1>
-
-        <div class="flex items-center mb-4">
-          <span class="text-gray-600 mr-2">Цена:</span>
-          <span class="text-xl font-semibold text-green-500">${{ product.price }}</span>
+        <!-- IMAGE -->
+        <div class="flex items-center justify-center bg-gray-50 p-8">
+          <div class="w-full max-w-md aspect-[3/4] overflow-hidden rounded-xl shadow">
+            <img
+              src="{{ product.get_image }}"
+              alt="{{ product.name }}"
+              onerror="this.src='/static/img/no_image.png'"
+              class="w-full h-full object-cover"
+            >
+          </div>
         </div>
 
-        <p class="text-gray-700 leading-relaxed">{{ product.description }}</p>
+        <!-- INFO -->
+        <div class="p-8 flex flex-col justify-center">
 
-        <div class="mt-6">
-             <a href="{% url 'add_to_cart' product_id=product.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                 <button >
-            Добавить в корзину
-          </button></a>
+          <h1 class="text-3xl font-bold text-gray-900 mb-4">
+            {{ product.name }}
+          </h1>
+
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-gray-500 text-sm">Цена:</span>
+            <span class="text-2xl font-bold text-green-600">
+              {{ product.price }} $
+            </span>
+          </div>
+
+          <p class="text-gray-700 leading-relaxed mb-8">
+            {{ product.description }}
+          </p>
+
+          <a href="{% url 'add_to_cart' product_id=product.id %}"
+             class="inline-flex items-center justify-center
+                    px-8 py-4 rounded-xl
+                    bg-blue-600 text-white font-semibold
+                    hover:bg-blue-700 transition
+                    shadow-lg hover:shadow-xl w-full md:w-fit">
+            🛒 Добавить в корзину
+          </a>
 
         </div>
-      </div>
 
+      </div>
     </div>
+
   </div>
 </div>
 
 {% endblock %}
+

@@ -1,12 +1,84 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
- <div class="flex flex-col ">
-  <h1 >Добро пожаловать!  </h1>
- <p>Уважаемые коллеги, мы рады приветствовать Вас на сайте нашей компании. Мы надеемся, что наш многолетний опыт и большие возможности помогут Вам в выборе стоматологической продукции.
-Став нашим партнером, Вам больше не придется тратить время на поиск качественной стоматологической продукции. Вы сможете полностью сосредоточиться на своей работе, а мы доставим Вам все необходимое в кратчайшие сроки и по доступной цене.
-Преимуществами компании являются постоянное наличие наиболее востребованного ассортимента на складах, а также быстрая обработка и точное соблюдение комплектации заказа при сохранении доступности цен.
-Предлагаем Вашему вниманию наилучшие концепции оснащения медицинских учреждений современным инновационным оборудованием, диагностическими и лечебными технологиями.
-В нашем ассортименте – более 20 000 наименований товаров</p>
- </div>
+
+<!-- HERO -->
+<section class="bg-gray-50 py-16">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+    <!-- LEFT: Text -->
+    <div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">
+        Добро пожаловать в наш интернет-магазин
+      </h1>
+
+      <p class="text-gray-600 leading-relaxed mb-6">
+        Мы рады приветствовать вас на сайте нашей компании.
+        Наш многолетний опыт и широкий ассортимент помогут вам
+        быстро и удобно подобрать качественную стоматологическую продукцию.
+      </p>
+
+      <p class="text-gray-600 leading-relaxed mb-8">
+        Более <span class="font-semibold text-gray-900">20 000 товаров</span>,
+        быстрая доставка, точная комплектация заказов и доступные цены —
+        всё для вашего комфорта и профессиональной работы.
+      </p>
+
+      <a href="{% url 'categories' %}"
+         class="inline-block px-8 py-4 rounded-2xl
+                bg-black text-white font-medium
+                hover:bg-gray-900 transition">
+        Перейти в каталог
+      </a>
+    </div>
+
+    <!-- RIGHT: Slideshow -->
+    <div class="relative rounded-3xl overflow-hidden shadow-lg">
+
+      <div class="relative h-[420px]">
+        <img src="/media/products/10.png"
+             class="absolute inset-0 w-full h-full object-cover slideshow opacity-100">
+        <img src="/media/products/3.png"
+             class="absolute inset-0 w-full h-full object-cover slideshow opacity-0">
+        <img src="/media/products/12.png"
+             class="absolute inset-0 w-full h-full object-cover slideshow opacity-0">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <h2 class="text-3xl font-semibold text-gray-900 mb-6">
+      Мы на карте
+    </h2>
+
+    <div class="rounded-3xl overflow-hidden shadow-lg">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?um=constructor%3AXXXXXXXXXXXX&source=constructor"
+        width="100%"
+        height="400"
+        frameborder="0">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- SLIDER SCRIPT -->
+<script>
+  const slides = document.querySelectorAll('.slideshow');
+  let index = 0;
+
+  setInterval(() => {
+    slides.forEach(slide => slide.classList.add('opacity-0'));
+    slides[index].classList.remove('opacity-0');
+    index = (index + 1) % slides.length;
+  }, 4000);
+</script>
+
 {% endblock %}
