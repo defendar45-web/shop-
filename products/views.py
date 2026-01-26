@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from products.models import Category, Product, ProductCategory
+from products.models import Category, Product
+from django.db.models import Q
 
 
 def categories(request):
@@ -19,18 +20,23 @@ def products_by_category(request, slug):
     })
 
 def search(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
     products = []
     categories = []
 
     if query:
-        products = Product.objects.filter(name__icontains=query)
-
+        query = query.strip()
+        products = Product.objects.filter(
+            Q(name__icontains=query) | Q(description__icontains=query)
+        )
+        categories = Category.objects.filter(
+            name__icontains=query
+        )
 
     return render(request, 'products/search.html', {
         'query': query,
         'products': products,
-
+        'categories': categories,
     })
 
 
