@@ -1,32 +1,78 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-  <div class="container mx-auto py-8">
-    <h4 class="text-2xl font-semibold mb-4">Результаты поиска</h4>
-    <h2 class="text-xl mb-6">Вы искали: {{ query }}</h2>
+<div class="min-h-screen bg-gray-100 py-10 px-4">
+  <div class="max-w-7xl mx-auto">
 
-    {% if products or categories %}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {% for product in products %}
-          <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="aspect-w-4 aspect-h-3">
-              <img src="{{ product.get_image }}" alt="{{ product.name }}" class="object-cover" onerror="this.src='/static/img/no_image.png'"><!-- Используем событие onerror для отображения заглушки -->
-            </div>
-            <div class="p-4">
-              <p class="text-gray-600 text-sm">{{ product.category }}</p>
-              <h4 class="text-lg font-medium mb-2">{{ product.name }}</h4>
-              <div class="flex items-center justify-between">
-                <p class="text-gray-800">${{ product.price }}</p>
-                <a href="{% url 'add_to_cart' product_id=product.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+</a>
-              </div>
-            </div>
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Результаты поиска</h1>
+      <p class="text-gray-500 mt-1">
+        Вы искали:
+        <span class="font-medium text-gray-800">«{{ query }}»</span>
+      </p>
+    </div>
+
+    {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+      {% for product in products %}
+      <div class="group bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
+
+        <!-- Image -->
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src="{{ product.get_image }}"
+               alt="{{ product.name }}"
+               onerror="this.src='/static/img/no_image.png'"
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+
+          <!-- Add to cart -->
+          <a href="{% url 'add_to_cart' product_id=product.id %}"
+             class="absolute bottom-3 right-3 w-11 h-11 rounded-full
+                    bg-blue-600 text-white flex items-center justify-center
+                    shadow-lg opacity-0 group-hover:opacity-100 transition">
+            +
+          </a>
+        </div>
+
+        <!-- Content -->
+        <div class="p-4">
+          <p class="text-xs text-gray-500 uppercase tracking-wide">
+            {{ product.category }}
+          </p>
+
+          <h3 class="mt-1 font-semibold text-gray-900 line-clamp-2">
+            {{ product.name }}
+          </h3>
+
+          <div class="mt-3 flex items-center justify-between">
+            <span class="text-lg font-bold text-gray-900">
+              {{ product.price }} $
+            </span>
+
+            <a href="{% url 'product_detail' product.slug %}"
+                class="text-sm text-blue-600 hover:underline">
+             Подробнее
+             </a>
           </div>
-        {% endfor %}
+        </div>
+
       </div>
+      {% endfor %}
 
-
+    </div>
     {% else %}
-      <p class="text-gray-500">Ничего не найдено</p>
+      <!-- Empty -->
+      <div class="bg-white rounded-2xl shadow p-10 text-center">
+        <p class="text-gray-500 text-lg">😕 Ничего не найдено</p>
+        <a href="{% url 'home' %}"
+           class="inline-block mt-4 px-6 py-3 rounded-xl
+                  bg-blue-600 text-white hover:bg-blue-700 transition">
+          Вернуться в магазин
+        </a>
+      </div>
     {% endif %}
+
   </div>
+</div>
 {% endblock %}

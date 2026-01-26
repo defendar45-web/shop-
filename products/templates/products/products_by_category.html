@@ -1,42 +1,69 @@
 {% extends 'base/base.html' %} {% block content %}
-<div class="container mx-auto py-8">
-	<h1 class="text-3xl font-semibold mb-6">{{ category.name }}</h1>
-	<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-		{% for product in products %}
-            <a href="{% url 'product_detail' product.slug %}">
-            <li class="rounded-lg shadow-md overflow-hidden relative min-h-[250px]">
-			<div class="relative h-full flex flex-col justify-between">
-				{% if product.image %}
-				<div class="relative h-full">
-					<img
-						src="{{ product.get_image }}"
-						alt="{{ product.name }}"
-						class="w-full h-48 object-cover object-center"
-					/>
-				</div>
-				{% else %}
-				<div class="bg-gray-100 flex items-center justify-center h-48">
-					<p class="text-gray-500">Изображение отсутствует</p>
-				</div>
-				{% endif %}
+<div class="min-h-screen bg-gray-50 py-12 px-4">
+  <div class="max-w-7xl mx-auto">
 
-				<div class="p-4">
-					<h2 class="text-xl font-semibold mb-2">{{ product.name }}</h2>
-					<div class="mt-4 flex justify-between items-center">
-						<span class="text-lg font-bold">{{ product.price }} руб.</span>
-						<form method="post" action="{% url 'add_to_cart' product.id %}">
-								{% csrf_token %}
-								<input type="hidden" name="next" value="{{ request.path }}">
-								<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-										В корзину
-								</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</li>
-            </a>
-		{% endfor %}
-	</ul>
+    <!-- Category title -->
+    <h1 class="text-3xl font-semibold text-gray-900 mb-8">
+      {{ category.name }}
+    </h1>
+
+    <!-- Products grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      {% for product in products %}
+      <div class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition
+                  flex flex-col overflow-hidden">
+
+        <!-- Image (одинаковая высота) -->
+        <a href="{% url 'product_detail' product.slug %}">
+          <div class="w-full h-64 bg-gray-100 overflow-hidden">
+            <img
+              src="{{ product.get_image }}"
+              alt="{{ product.name }}"
+              onerror="this.src='/static/img/no_image.png'"
+              class="w-full h-full object-cover hover:scale-105 transition duration-300"
+            >
+          </div>
+        </a>
+
+        <!-- Content -->
+        <div class="flex flex-col flex-grow p-6">
+
+          <!-- Name (фиксированная высота) -->
+          <h2 class="text-lg font-medium text-gray-900 mb-2 line-clamp-2 min-h-[56px]">
+            {{ product.name }}
+          </h2>
+
+          <!-- Spacer -->
+          <div class="flex-grow"></div>
+
+          <!-- Bottom -->
+          <div class="flex items-center justify-between mt-4">
+
+            <span class="text-xl font-semibold text-gray-900">
+              {{ product.price }} ₽
+            </span>
+
+            <form method="post" action="{% url 'add_to_cart' product.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.path }}">
+              <button
+                type="submit"
+                class="px-4 py-2 rounded-xl
+                       bg-black text-white
+                       hover:bg-gray-900 transition">
+                В корзину
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
 </div>
 {% endblock %}
