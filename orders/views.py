@@ -46,3 +46,12 @@ def checkout(request):
         "cart_items": cart_items,
         "total_price": total_price
     })
+
+def order_history(request):
+
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'orders/order_history.html', context)

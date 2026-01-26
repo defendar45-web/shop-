@@ -2,6 +2,64 @@
 
 {% block content %}
 
-    <h1> Заказ  </h1>
+     <div class="container mx-auto py-8">
+  <div class="flex flex-col md:flex-row gap-8">
+    <form method="POST" class="checkout-form w-full md:w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      {% csrf_token %}
+      <h2 class="block text-gray-700 text-xl font-bold mb-6">Shipping Information</h2>
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+        <input id="name" name="name" type="text" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="city" class="block text-gray-700 text-sm font-bold mb-2">City</label>
+        <input id="city" name="city" type="text" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="street" class="block text-gray-700 text-sm font-bold mb-2">Street</label>
+        <input id="street" name="street" type="text" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="house_number" class="block text-gray-700 text-sm font-bold mb-2">House Number</label>
+        <input id="house_number" name="house_number" type="text" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="floor" class="block text-gray-700 text-sm font-bold mb-2">Floor</label>
+        <input id="floor" name="floor" type="number" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-4">
+        <label for="phone_number" class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+        <input id="phone_number" name="phone_number" type="text" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-6">
+        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+        <input id="email" name="email" type="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+
+      <button type="submit" class="checkout-submit bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Place Order</button>
+    </form>
+
+    <div class="checkout-details w-full md:w-1/2 bg-gray-100 p-4 rounded">
+      <h2 class="text-gray-700 text-xl font-bold mb-6">Order Summary</h2>
+      <ul>
+        {% for item in cart_items %}
+        <li class="flex items-center justify-between py-2 border-b border-gray-300">
+          <div class="flex items-center">
+            <img src="{{ item.product.get_image }}" alt="" class="w-16 h-16 object-cover rounded mr-4">
+            <p class="text-gray-700">{{ item.product.name }}</p>
+          </div>
+          <p class="text-gray-700">${{ item.product.price }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="checkout-cost mt-4">
+        <p class="flex justify-between"><span class="text-gray-700 font-bold">Subtotal:</span> <span>${{ total_price }}</span></p>
+        <p class="flex justify-between"><span class="text-gray-700 font-bold">Shipping:</span> <span>Free</span></p>
+        <p class="flex justify-between text-lg"><span class="text-gray-700 font-bold">Total:</span> <span>${{ total_price }}</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

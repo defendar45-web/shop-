@@ -27,22 +27,20 @@
                 </div>
 
                 <div class="flex justify-between">
-                    <a href="{% url 'profile' %}"
-                       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <a href="{% url 'profile' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Отмена
                     </a>
-                    <button name="password_submit" type="submit"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <button name="password_submit" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Изменить пароль
                     </button>
                 </div>
             </form>
         </div>
 
-        <!-- Разделитель (отображается только на md и больше) -->
+        <
         <div class="hidden md:block border-l border-gray-200"></div>
 
-        <!-- Форма редактирования профиля (справа на md и больше) -->
+
         <div class="md:w-1/2 md:pl-8">
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Редактировать профиль</h2>
             <form method="POST" class="space-y-4">
@@ -68,8 +66,7 @@
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
 
-                <button name="profile_submit" type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button name="profile_submit" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Сохранить изменения
                 </button>
             </form>

@@ -33,8 +33,8 @@
         <img src="{% static 'icons/Logo.svg' %}" alt="">
 
         <!-- Поиск -->
-        <form class="flex w-[650px]">
-            <input type="text" name="q" placeholder="Поиск по сайту..." class="w-full rounded-tl-[15px] rounded-bl-[15px] border border-[#BCBCBC] p-[10px] pl-[20px] focus:outline-none text-base">
+        <form method="get" action="{% url 'search' %}"  class="flex w-[650px]">
+            <input type="text" name="q" value="{{ request.GET.q  }}" placeholder="Поиск по сайту..." class="w-full rounded-tl-[15px] rounded-bl-[15px] border border-[#BCBCBC] p-[10px] pl-[20px] focus:outline-none text-base">
             <button class="bg-[#00BEA2] text-white px-[20px] rounded-br-[15px] rounded-tr-[15px] hover:bg-[#05B197] transition-all">Найти</button>
         </form>
 

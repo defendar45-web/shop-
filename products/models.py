@@ -30,4 +30,4 @@ class Product(models.Model):
 
 
 class ProductCategory:
-    pass
+    objects = None

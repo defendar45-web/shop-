@@ -3,7 +3,8 @@
 	<h1 class="text-3xl font-semibold mb-6">{{ category.name }}</h1>
 	<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{% for product in products %}
-		<li class="rounded-lg shadow-md overflow-hidden relative min-h-[250px]">
+            <a href="{% url 'product_detail' product.slug %}">
+            <li class="rounded-lg shadow-md overflow-hidden relative min-h-[250px]">
 			<div class="relative h-full flex flex-col justify-between">
 				{% if product.image %}
 				<div class="relative h-full">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</li>
+            </a>
 		{% endfor %}
 	</ul>
 </div>
