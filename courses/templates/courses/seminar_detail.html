@@ -1,0 +1,58 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+    <div class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- Назад -->
+    <a href="{% url 'seminars' %}"
+       class="text-sm text-blue-600 hover:underline">
+        ← Назад к семинарам
+    </a>
+    <div class="bg-white rounded-2xl shadow mt-4 overflow-hidden">
+
+        <!-- Картинка -->
+        <img
+            src="{{ seminar.get_image }}"
+            alt="{{ seminar.name }}"
+            class="w-full h-80 object-cover"
+        >
+
+        <div class="p-6">
+
+            <h1 class="text-3xl font-bold mb-4">
+                {{ seminar.name }}
+            </h1>
+
+            <div class="flex flex-wrap items-center gap-4 mb-4 text-sm text-gray-500">
+                <span>📅 {{ seminar.date|date:"d.m.Y H:i" }}</span>
+                <span class="text-green-600 font-bold text-lg">
+                    {{ seminar.price }} ₽
+                </span>
+            </div>
+
+            <p class="text-gray-700 leading-relaxed mb-6">
+                {{ seminar.description }}
+            </p>
+
+            <!-- Кнопки -->
+            <div class="flex gap-3">
+                <a href="{% url 'add_to_cart' seminar.id %}"
+                   class="px-6 py-3 rounded-xl bg-green-600 text-white
+                          hover:bg-green-700 transition">
+                    Купить
+                </a>
+
+                <a href="{% url 'seminars' %}"
+                   class="px-6 py-3 rounded-xl border border-gray-300
+                          hover:bg-gray-100 transition">
+                    Назад
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

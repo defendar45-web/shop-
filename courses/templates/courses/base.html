@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+  <div class="max-w-5xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold mb-6">Семинары</h1>
+
+    <div class="space-y-4">
+
+        {% for seminar in seminars %}
+            <div class="bg-white rounded-2xl shadow hover:shadow-md transition p-4">
+
+                <div class="flex flex-col sm:flex-row gap-4">
+
+                    <!-- Картинка -->
+                    <div class="sm:w-48 w-full shrink-0">
+                        <img
+                            src="{{ seminar.get_image }}"
+                            alt="{{ seminar.name }}"
+                            class="w-full h-40 sm:h-full object-cover rounded-xl"
+                        >
+                    </div>
+
+                    <!-- Контент -->
+                    <div class="flex flex-col justify-between w-full">
+
+                        <div>
+                            <h3 class="text-xl font-semibold mb-1">
+                                {{ seminar.name }}
+                            </h3>
+
+                            <p class="text-gray-600 text-sm mb-3">
+                                {{ seminar.description|truncatechars:180 }}
+                            </p>
+                        </div>
+
+                        <!-- Нижняя строка -->
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                            <div class="text-sm text-gray-500">
+                                {{ seminar.date|date:"d.m.Y H:i" }}
+                            </div>
+
+                            <div class="flex items-center gap-3">
+
+                                <span class="text-green-600 font-bold text-lg">
+                                    {{ seminar.price }} ₽
+                                </span>
+
+                                <!-- Кнопки -->
+                                <a href="{% url 'seminar_detail' seminar.id %}"
+                                   class="px-4 py-2 text-sm rounded-lg border border-gray-300
+                                          hover:bg-gray-100 transition">
+                                    Подробнее
+                                </a>
+
+                                <a href="{% url 'add_to_cart' seminar.id %}"
+                                   class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white
+                                          hover:bg-green-700 transition">
+                                    Купить
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-gray-500">Семинары пока не добавлены.</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

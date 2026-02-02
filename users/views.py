@@ -10,9 +10,9 @@ from users.models import CustomUser
 
 def register(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        username = request.POST.get ('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
         if username and email and password:
             if not CustomUser.objects.filter(username=username, email=email).exists():
@@ -28,14 +28,14 @@ def register(request):
         else:
             error = "Заполните все поля"
 
-        return render(request, "users/base.html", {"error": error})
+        return render(request, "users/register.html", {"error": error})
 
     return render(request, "users/register.html")
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         if username and password:
             user = authenticate(request, username=username, password=password)
@@ -48,10 +48,10 @@ def login(request):
         else:
             error = "Заполните поля"
 
-        return render(request, "users/base.html", {"error": error})
+        return render(request, "users/login.html", {"error": error})
     return render(request, "users/login.html")
 
-@login_required
+@login_required(login_url='login')
 def profile(request):
    user = request.user
 
@@ -62,6 +62,12 @@ def profile(request):
         'email': user.email,
         'address': user.address,
 })
+
+
+def auth_logout(request):
+    auth_logout(request)
+    return redirect("login")
+
 
 @login_required(login_url='login')
 def profile_edit(request):

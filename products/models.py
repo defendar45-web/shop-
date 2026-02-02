@@ -8,7 +8,10 @@ class Category(models.Model):
     image = models.ImageField(upload_to='categories/', blank=True)
 
     def get_image(self):
-        return self.image.url
+        if self.image:
+            return self.image.url
+        return "/static/icons/no_image.png"
+
 
     def __str__(self):
         return self.name
@@ -23,7 +26,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products/", null=True, blank=True)
 
     def get_image(self):
-        return self.image.url
+        if self.image:
+            return self.image.url
+        return "/static/icons/no_image.png"
+
 
     def __str__(self):
         return self.name

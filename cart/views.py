@@ -5,6 +5,8 @@ from products.models import Product
 from django.shortcuts import render
 from django.shortcuts import redirect, get_object_or_404
 
+
+@login_required(login_url='login')
 def cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
     subtotal = sum(item.get_total_price() for item in cart_items)

@@ -13,3 +13,12 @@
 {% block button %}
 Войти
 {% endblock %}
+{% block extra_action %}
+<p class="text-sm text-gray-500 mt-4 text-center">
+  Нет аккаунта?
+  <a href="{% url 'register' %}"
+     class="text-[#00BEA2] font-medium hover:underline">
+    Зарегистрироваться
+  </a>
+</p>
+{% endblock %}
