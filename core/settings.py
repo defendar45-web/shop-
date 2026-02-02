@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'orders',
-    'courses'
+    'courses',
+    'promotion'
 ]
 
 DJANGO_ICONS = {
