@@ -15,7 +15,7 @@ def register(request):
         password = request.POST.get('password')
 
         if username and email and password:
-            if not CustomUser.objects.filter(username=username, email=email).exists():
+            if not CustomUser.objects.filter(email=email).exists():
                 CustomUser.objects.create_user(
                     username=username,
                     email=email,
@@ -47,6 +47,7 @@ def login(request):
                 error = "Неверный логин или пароль"
         else:
             error = "Заполните поля"
+            print(error)
 
         return render(request, "users/login.html", {"error": error})
     return render(request, "users/login.html")
@@ -63,9 +64,9 @@ def profile(request):
         'address': user.address,
 })
 
-
+@login_required(login_url='login')
 def auth_logout(request):
-    auth_logout(request)
+    logout(request)
     return redirect("login")
 
 
