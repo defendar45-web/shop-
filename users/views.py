@@ -92,37 +92,34 @@ def profile_edit(request):
             if address:
                 user.address = address
 
-      
-
             user.save()
 
             return redirect('profile')
 
         elif 'password_submit' in request.POST:
-            current_password = request.POST['current_password']
-            new_password = request.POST['new_password']
-            confirm_password = request.POST['confirm_password']
+            current_password = request.POST.get('current_password', '')
+            new_password = request.POST.get('new_password', '')
+            confirm_password = request.POST.get('confirm_password', '')
 
-            if not user.check_password(current_password):
+            if not all([current_password, new_password, confirm_password]):
+                messages.error(request, "Заполните все поля")
+            elif not user.check_password(current_password):
                 messages.error(request, "Неверный текущий пароль")
-
             elif new_password != confirm_password:
-                messages.error(request, "Новый пароль и пароль подтверждения не совпадают.")
-
+                messages.error(request, "Новый пароль и пароль подтверждения не совпадают")
+            elif len(new_password) < 8:
+                messages.error(request, "Пароль должен быть не менее 8 символов")
             else:
                 user.set_password(new_password)
                 user.save()
                 update_session_auth_hash(request, user)
+                messages.success(request, "Пароль успешно изменен")
+                return redirect('profile')
 
-                return render(request, 'users/profile.html', context={
-                    'username': user.username,
-                    'first_name': user.first_name,
-                    'last_name': user.last_name,
-                    'email': user.email,
-                })
     return render(request, 'users/profile_edit.html', context={
         'username': user.username,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
+        'address': user.address,
     })
