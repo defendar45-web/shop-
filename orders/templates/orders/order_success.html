@@ -1,36 +1,48 @@
+{% extends 'base/base.html' %}
 {% block content %}
-<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-    <div class="bg-white rounded-2xl shadow-lg max-w-md w-full p-8 text-center">
 
-        <!-- Иконка -->
-        <div class="mx-auto mb-6 w-20 h-20 flex items-center justify-center
-                    rounded-full bg-green-100 text-green-600 text-4xl">
-            ✓
-        </div>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center">
+  <div class="flex flex-col items-center text-center max-w-xl px-[20px]">
 
-        <!-- Текст -->
-        <h1 class="text-2xl font-bold text-gray-800 mb-2">
-            Заказ успешно оформлен
-        </h1>
-        <p class="text-gray-500 mb-6">
-            Спасибо за покупку! Мы уже начали обработку вашего заказа.
-        </p>
+    <!-- Заголовок -->
+    <h1 class="text-[32px] font-semibold text-gray-800 mb-[10px]">
+      Заказ успешно оформлен
+    </h1>
 
-        <!-- Кнопки -->
-        <div class="flex flex-col gap-3">
-            <a href="{% url 'home' %}"
-               class="w-full py-3 rounded-xl bg-blue-600 text-white font-semibold
-                      hover:bg-blue-700 transition shadow">
-                Вернуться на главную
-            </a>
+    <!-- Описание -->
+    <p class="text-gray-500 mb-[40px] leading-relaxed">
+      Спасибо за покупку! Мы уже начали обработку вашего заказа.
+      Информация о заказе будет доступна в личном кабинете.
+    </p>
 
-            <a href="{% url 'order_history' %}"
-               class="w-full py-3 rounded-xl bg-gray-100 text-gray-800 font-medium
-                      hover:bg-gray-200 transition">
-                Перейти к моим заказам
-            </a>
-        </div>
+    <!-- Кнопки -->
+    <div class="flex gap-[20px] flex-wrap justify-center">
+
+      <a href="{% url 'home' %}"
+         class="flex items-center justify-center
+                w-[200px] h-[56px]
+                rounded-full
+                bg-[#00BEA2] text-white font-semibold
+                hover:bg-[#05B197]
+                transition shadow-md">
+        На главную
+      </a>
+
+      <a href="{% url 'order_history' %}"
+         class="flex items-center justify-center
+                w-[200px] h-[56px]
+                rounded-full
+                bg-white text-gray-800 font-semibold
+                border border-gray-300
+                hover:bg-gray-50
+                transition shadow-sm">
+        Мои заказы
+      </a>
 
     </div>
+
+  </div>
 </div>
+
 {% endblock %}
+

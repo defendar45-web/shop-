@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as user_login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from users.models import CustomUser
+from products.models import Product
+from users.models import CustomUser, Favorite
 
 
 # Регистрация
@@ -122,4 +123,29 @@ def profile_edit(request):
         'last_name': user.last_name,
         'email': user.email,
         'address': user.address,
+    })
+
+@login_required (login_url='login')
+def toggle_favorite(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    favorite, created = Favorite.objects.get_or_create(
+        user=request.user,
+        product=product
+    )
+
+    if not created:
+        favorite.delete()  # если уже был — убираем
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def favorites(request):
+    products = Product.objects.filter(favorite__user=request.user).order_by('-id')
+
+    favorite_ids = products.values_list('id', flat=True)
+
+    return render(request, 'users/favorites.html', context= {
+        'products': products,
+        'favorites': favorite_ids,
     })

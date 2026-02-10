@@ -6,5 +6,9 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('profile/edit/', profile_edit, name='profile_edit'),
     path('profile/', profile, name='profile'),
-    path('auth_logout/', auth_logout, name='auth_logout')
-] 
+    path('auth_logout/', auth_logout, name='auth_logout'),
+    path('favorite/<int:product_id>/', toggle_favorite, name='toggle_favorite'),
+    path('favorites/', favorites, name='favorites'),
+
+
+   ]

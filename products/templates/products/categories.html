@@ -1,32 +1,56 @@
 {% extends 'base/base.html' %} {% block content %}
-<div class="container py-8">
-	<h1 class="text-3xl font-semibold mb-6">Категории</h1>
-	<ul class="grid grid-cols-3 gap-2">
-		{% for category in categories %}
-		<a href="{% url 'products_by_category' slug=category.slug %}">
-			<li>
-				<div
-					class="bg-white p-5 rounded-lg h-[250px] flex flex-col items-center justify-end"
-				>
-					{% if category.image %}
-					<img
-						class="w-[150px] h-[150px] mx-auto"
-						src="{{ category.get_image }}"
-						alt=""
-					/>
-					{% else %}
-					<p class="text-[12px] text-gray text-center mb-[60px]">
-						Изображение отсутствует
-					</p>
-					{% endif %}
-					<h3 class="text-center text-[14px] font-semibold mt-[20px] uppercase">
-						{{ category.name }}
-					</h3>
-				</div>
-			</li>
-		</a>
 
-		{% endfor %}
-	</ul>
+<div class="min-h-screen py-14 px-4">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Title -->
+    <h1 class="text-4xl font-semibold text-gray-900 mb-10">
+      Категории
+    </h1>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      {% for category in categories %}
+      <a href="{% url 'products_by_category' slug=category.slug %}"
+         class="group">
+
+        <div class="bg-white rounded-3xl shadow-sm
+                    hover:shadow-md transition
+                    h-[280px] flex flex-col items-center justify-center
+                    p-6">
+
+          <!-- Image -->
+          {% if category.image %}
+          <div class="w-[160px] h-[160px] mb-6 overflow-hidden">
+            <img
+              src="{{ category.get_image }}"
+              alt="{{ category.name }}"
+              class="w-full h-full object-contain
+                     group-hover:scale-105 transition"
+            >
+          </div>
+          {% else %}
+          <div class="w-[160px] h-[160px] mb-6
+                      flex items-center justify-center
+                      text-gray-400 text-sm">
+            Нет изображения
+          </div>
+          {% endif %}
+
+          <!-- Name -->
+          <h3 class="text-[16px] font-semibold text-gray-900
+                     text-center uppercase tracking-wide">
+            {{ category.name }}
+          </h3>
+
+        </div>
+      </a>
+      {% endfor %}
+
+    </div>
+
+  </div>
 </div>
+
 {% endblock %}

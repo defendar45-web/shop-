@@ -2,50 +2,77 @@
 
 {% block content %}
 
-<div class="min-h-screen bg-gray-100 py-10 px-4">
+<div class="min-h-screen py-14 px-4">
   <div class="max-w-6xl mx-auto">
 
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white rounded-3xl shadow-sm overflow-hidden">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2">
 
         <!-- IMAGE -->
-        <div class="flex items-center justify-center bg-gray-50 p-8">
-          <div class="w-full max-w-md aspect-[3/4] overflow-hidden rounded-xl shadow">
+        <div class="flex items-center justify-center p-10">
+
+          <div class="w-full max-w-md aspect-[3/4]
+                      rounded-2xl overflow-hidden">
+
             <img
               src="{{ product.get_image }}"
               alt="{{ product.name }}"
               onerror="this.src='/static/img/no_image.png'"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-contain"
             >
+
           </div>
         </div>
 
         <!-- INFO -->
-        <div class="p-8 flex flex-col justify-center">
+        <div class="p-10 flex flex-col justify-center">
 
-          <h1 class="text-3xl font-bold text-gray-900 mb-4">
+          <h1 class="text-4xl font-semibold text-gray-900 mb-6">
             {{ product.name }}
           </h1>
 
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-gray-500 text-sm">Цена:</span>
-            <span class="text-2xl font-bold text-green-600">
-              {{ product.price }} $
+          <!-- Price -->
+          <div class="flex items-center gap-4 mb-8">
+            <span class="text-sm text-gray-500">
+              Цена
+            </span>
+            <span class="text-2xl font-semibold text-[#00BEA2]">
+              {{ product.price }} ₽
             </span>
           </div>
 
-          <p class="text-gray-700 leading-relaxed mb-8">
+          <!-- Description -->
+          <p class="text-gray-600 leading-relaxed mb-12">
             {{ product.description }}
           </p>
 
-          <a href="{% url 'add_to_cart' product_id=product.id %}"
-             class="inline-flex items-center justify-center
-                    px-8 py-4 rounded-xl
-                    bg-blue-600 text-white font-semibold
-                    hover:bg-blue-700 transition
-                    shadow-lg hover:shadow-xl w-full md:w-fit">
-            🛒 Добавить в корзину
-          </a>
+          <!-- Actions -->
+          <div class="flex flex-wrap gap-4">
+
+            <a href="{% url 'add_to_cart' product_id=product.id %}"
+               class="inline-flex items-center justify-center
+                      h-[56px] px-[40px]
+                      rounded-full
+                      bg-[#00BEA2] text-white
+                      font-semibold
+                      hover:bg-[#05B197]
+                      transition shadow-sm">
+              В корзину
+            </a>
+
+           <a href="{{ request.META.HTTP_REFERER|default:'/' }}"
+              class="inline-flex items-center justify-center
+          h-[56px] px-[40px]
+          rounded-full
+          border border-gray-300
+          text-gray-800 font-medium
+          hover:bg-gray-100
+          transition">
+  Назад
+</a>
+
+          </div>
 
         </div>
 
@@ -56,4 +83,5 @@
 </div>
 
 {% endblock %}
+
 

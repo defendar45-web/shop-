@@ -15,6 +15,10 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
 
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(args, kwargs)
+        self.total_amount = None
+
     def __str__(self):
         return f"Order {self.id} by {self.user.username}"
 

@@ -8,7 +8,8 @@ import users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
+    path('home/', include('home.urls')),
+
 
     path('users/', include("users.urls")),
     path('catalog/', include("products.urls")),
@@ -16,4 +17,7 @@ urlpatterns = [
     path('orders/', include("orders.urls")),
     path('seminars/', include("courses.urls")),
     path('promo/', include("promotion.urls")),
+    path('brands/' , include("brand.urls")),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

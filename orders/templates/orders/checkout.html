@@ -1,130 +1,176 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-100 py-12 px-4">
+
+<div class="min-h-screen bg-gray-100 py-[40px] px-[20px]">
   <div class="max-w-6xl mx-auto">
 
-    <!-- Заголовок -->
-    <div class="mb-10">
-      <h1 class="text-3xl font-bold text-gray-900">Оформление заказа</h1>
-      <p class="text-gray-500 mt-1">Введите данные доставки и проверьте заказ</p>
+    <!-- Header -->
+    <div class="mb-[30px]">
+      <h1 class="text-[32px] font-semibold text-gray-800">
+        Оформление заказа
+      </h1>
+      <p class="text-gray-500 mt-[6px]">
+        Введите данные доставки и проверьте заказ
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
 
-      <!-- Форма доставки -->
+      <!-- LEFT: FORM -->
       <form method="POST"
-            class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+            class="bg-white rounded-[20px] shadow-md p-[24px] space-y-[20px]">
         {% csrf_token %}
 
-        <h2 class="text-xl font-semibold text-gray-800">Данные доставки</h2>
+        <h2 class="text-[22px] font-semibold text-gray-800">
+          Данные доставки
+        </h2>
 
+        <!-- Name -->
         <div>
           <label class="text-sm text-gray-600">Имя</label>
           <input name="name" required
-                 class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                        focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                        transition outline-none">
+                 class="mt-[6px] w-full rounded-[15px]
+                        border border-gray-300 px-[14px] py-[12px]
+                        focus:border-[#00BEA2]
+                        focus:ring-2 focus:ring-[#00BEA2]/20
+                        outline-none transition">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- City / Street -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-[16px]">
           <div>
             <label class="text-sm text-gray-600">Город</label>
             <input name="city" required
-                   class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                          focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                          transition outline-none">
+                   class="mt-[6px] w-full rounded-[15px]
+                          border border-gray-300 px-[14px] py-[12px]
+                          focus:border-[#00BEA2]
+                          focus:ring-2 focus:ring-[#00BEA2]/20
+                          outline-none transition">
           </div>
 
           <div>
             <label class="text-sm text-gray-600">Улица</label>
             <input name="street" required
-                   class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                          focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                          transition outline-none">
+                   class="mt-[6px] w-full rounded-[15px]
+                          border border-gray-300 px-[14px] py-[12px]
+                          focus:border-[#00BEA2]
+                          focus:ring-2 focus:ring-[#00BEA2]/20
+                          outline-none transition">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- House / Floor -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-[16px]">
           <div>
             <label class="text-sm text-gray-600">Дом</label>
             <input name="house_number" required
-                   class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                          focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                          transition outline-none">
+                   class="mt-[6px] w-full rounded-[15px]
+                          border border-gray-300 px-[14px] py-[12px]
+                          focus:border-[#00BEA2]
+                          focus:ring-2 focus:ring-[#00BEA2]/20
+                          outline-none transition">
           </div>
 
           <div>
             <label class="text-sm text-gray-600">Этаж</label>
             <input type="number" name="floor"
-                   class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                          focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                          transition outline-none">
+                   class="mt-[6px] w-full rounded-[15px]
+                          border border-gray-300 px-[14px] py-[12px]
+                          focus:border-[#00BEA2]
+                          focus:ring-2 focus:ring-[#00BEA2]/20
+                          outline-none transition">
           </div>
         </div>
 
+        <!-- Phone -->
         <div>
           <label class="text-sm text-gray-600">Телефон</label>
           <input name="phone_number" required
-                 class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                        focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                        transition outline-none">
+                 class="mt-[6px] w-full rounded-[15px]
+                        border border-gray-300 px-[14px] py-[12px]
+                        focus:border-[#00BEA2]
+                        focus:ring-2 focus:ring-[#00BEA2]/20
+                        outline-none transition">
         </div>
 
+        <!-- Email -->
         <div>
           <label class="text-sm text-gray-600">Email</label>
           <input type="email" name="email" required
-                 class="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3
-                        focus:border-blue-500 focus:ring-2 focus:ring-blue-100
-                        transition outline-none">
+                 class="mt-[6px] w-full rounded-[15px]
+                        border border-gray-300 px-[14px] py-[12px]
+                        focus:border-[#00BEA2]
+                        focus:ring-2 focus:ring-[#00BEA2]/20
+                        outline-none transition">
         </div>
 
+        <!-- Submit -->
         <button type="submit"
-                class="w-full mt-4 py-4 rounded-xl bg-blue-600 text-white font-semibold
-                       hover:bg-blue-700 transition shadow">
+                class="w-full mt-[10px] py-[14px]
+                       rounded-[15px]
+                       bg-[#00BEA2] text-white font-semibold
+                       hover:bg-[#05B197]
+                       transition shadow-md">
           🛒 Оформить заказ
         </button>
       </form>
 
-      <!-- Сводка заказа -->
-      <div class="bg-white rounded-2xl shadow-lg p-6 h-fit">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Ваш заказ</h2>
+      <!-- RIGHT: SUMMARY -->
+      <div class="bg-white rounded-[20px] shadow-md p-[24px] h-fit">
 
-        <ul class="space-y-4">
+        <h2 class="text-[22px] font-semibold text-gray-800 mb-[20px]">
+          Ваш заказ
+        </h2>
+
+        <ul class="space-y-[16px]">
           {% for item in cart_items %}
           <li class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
+
+            <div class="flex items-center gap-[12px]">
               <img src="{{ item.product.get_image }}"
-                   class="w-16 h-16 rounded-xl object-cover">
+                   class="w-[56px] h-[56px] rounded-[12px] object-cover">
+
               <div>
-                <p class="font-medium text-gray-800">{{ item.product.name }}</p>
-                <p class="text-sm text-gray-500">Цена: ${{ item.product.price }}</p>
+                <p class="font-medium text-gray-800">
+                  {{ item.product.name }}
+                </p>
+                <p class="text-sm text-gray-500">
+                  {{ item.product.price }} ₽
+                </p>
               </div>
             </div>
+
             <span class="font-semibold text-gray-800">
-              {{ item.get_total_price }} $
+              {{ item.get_total_price }} ₽
             </span>
+
           </li>
           {% endfor %}
         </ul>
 
-        <div class="border-t mt-6 pt-4 space-y-2 text-sm">
-          <div class="flex justify-between">
-            <span class="text-gray-600">Подытог</span>
-            <span>${{ total_price }}</span>
+        <div class="border-t mt-[20px] pt-[16px] space-y-[8px] text-sm">
+          <div class="flex justify-between text-gray-600">
+            <span>Подытог</span>
+            <span>{{ total_price }} ₽</span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-gray-600">Доставка</span>
-            <span class="text-green-600">Бесплатно</span>
+
+          <div class="flex justify-between text-gray-600">
+            <span>Доставка</span>
+            <span class="text-[#00BEA2] font-medium">Бесплатно</span>
           </div>
-          <div class="flex justify-between text-lg font-bold">
+
+          <div class="flex justify-between text-[18px] font-semibold text-gray-800">
             <span>Итого</span>
-            <span class="text-blue-600">${{ total_price }}</span>
+            <span>{{ total_price }} ₽</span>
           </div>
         </div>
+
       </div>
 
     </div>
   </div>
 </div>
+
 {% endblock %}
+

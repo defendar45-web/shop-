@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">
+        Бренды
+    </h1>
+
+    {% if brands %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for brand in brands %}
+                <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-6 flex flex-col items-center">
+
+                    {% if brand.image %}
+                        <img
+                            src="{{ brand.image.url }}"
+                            alt="{{ brand.name }}"
+                            class="h-32 w-full object-contain mb-4"
+                        >
+                    {% else %}
+                        <div class="h-32 w-full flex items-center justify-center text-gray-400">
+                            Нет изображения
+                        </div>
+                    {% endif %}
+
+                    <h2 class="text-lg font-semibold text-gray-700 text-center">
+                        {{ brand.name }}
+                    </h2>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center text-gray-500 text-lg">
+            Бренды пока не добавлены
+        </div>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

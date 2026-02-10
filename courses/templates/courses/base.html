@@ -2,79 +2,97 @@
 
 {% block content %}
 
-  <div class="max-w-5xl mx-auto px-4 py-8">
+<div class="min-h-screen bg-gray-100 py-[40px] px-[20px]">
+  <div class="max-w-6xl mx-auto">
 
-    <h1 class="text-3xl font-bold mb-6">Семинары</h1>
+    <!-- Header -->
+    <div class="mb-[32px]">
+      <h1 class="text-[32px] font-semibold text-gray-800">
+        Семинары
+      </h1>
+      <p class="text-gray-500 mt-[6px]">
+        Обучающие мероприятия и профессиональные курсы
+      </p>
+    </div>
 
-    <div class="space-y-4">
+    <div class="space-y-[20px]">
 
-        {% for seminar in seminars %}
-            <div class="bg-white rounded-2xl shadow hover:shadow-md transition p-4">
+      {% for seminar in seminars %}
+      <div class="bg-white rounded-[20px] shadow-md
+                  hover:shadow-lg transition overflow-hidden">
 
-                <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col sm:flex-row gap-[20px] p-[20px]">
 
-                    <!-- Картинка -->
-                    <div class="sm:w-48 w-full shrink-0">
-                        <img
-                            src="{{ seminar.get_image }}"
-                            alt="{{ seminar.name }}"
-                            class="w-full h-40 sm:h-full object-cover rounded-xl"
-                        >
-                    </div>
+          <!-- Image -->
+          <div class="sm:w-[220px] w-full shrink-0">
+            <img
+              src="{{ seminar.get_image }}"
+              alt="{{ seminar.name }}"
+              class="w-full h-[160px] sm:h-full object-cover rounded-[15px]"
+            >
+          </div>
 
-                    <!-- Контент -->
-                    <div class="flex flex-col justify-between w-full">
+          <!-- Content -->
+          <div class="flex flex-col justify-between w-full">
 
-                        <div>
-                            <h3 class="text-xl font-semibold mb-1">
-                                {{ seminar.name }}
-                            </h3>
+            <div>
+              <h3 class="text-[20px] font-semibold text-gray-800 mb-[6px]">
+                {{ seminar.name }}
+              </h3>
 
-                            <p class="text-gray-600 text-sm mb-3">
-                                {{ seminar.description|truncatechars:180 }}
-                            </p>
-                        </div>
-
-                        <!-- Нижняя строка -->
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-
-                            <div class="text-sm text-gray-500">
-                                {{ seminar.date|date:"d.m.Y H:i" }}
-                            </div>
-
-                            <div class="flex items-center gap-3">
-
-                                <span class="text-green-600 font-bold text-lg">
-                                    {{ seminar.price }} ₽
-                                </span>
-
-                                <!-- Кнопки -->
-                                <a href="{% url 'seminar_detail' seminar.id %}"
-                                   class="px-4 py-2 text-sm rounded-lg border border-gray-300
-                                          hover:bg-gray-100 transition">
-                                    Подробнее
-                                </a>
-
-                                <a href="{% url 'add_to_cart' seminar.id %}"
-                                   class="px-4 py-2 text-sm rounded-lg bg-green-600 text-white
-                                          hover:bg-green-700 transition">
-                                    Купить
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+              <p class="text-gray-500 text-[14px] leading-relaxed mb-[16px]">
+                {{ seminar.description|truncatechars:180 }}
+              </p>
             </div>
-        {% empty %}
-            <p class="text-gray-500">Семинары пока не добавлены.</p>
-        {% endfor %}
+
+            <!-- Bottom row -->
+            <div class="flex flex-col sm:flex-row
+                        sm:items-center sm:justify-between
+                        gap-[16px]">
+
+              <!-- Date -->
+              <div class="text-[14px] text-gray-500">
+                {{ seminar.date|date:"d.m.Y H:i" }}
+              </div>
+
+              <!-- Actions -->
+              <div class="flex items-center gap-[12px]">
+
+                <span class="text-[#00BEA2] font-semibold text-[18px]">
+                  {{ seminar.price }} ₽
+                </span>
+
+                <a href="{% url 'seminar_detail' seminar.id %}"
+                   class="inline-flex items-center justify-center
+                          h-[44px] px-[20px]
+                          rounded-full
+                          border border-gray-300
+                          text-[14px] font-medium
+                          hover:bg-gray-100 transition">
+                  Подробнее
+                </a>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% empty %}
+
+      <!-- Empty state -->
+      <div class="bg-white rounded-[20px] shadow-md p-[48px] text-center">
+        <p class="text-gray-500 text-[18px]">
+          Семинары пока не добавлены
+        </p>
+      </div>
+
+      {% endfor %}
 
     </div>
 
+  </div>
 </div>
 
 {% endblock %}

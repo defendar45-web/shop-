@@ -2,89 +2,104 @@
 
 
 {% block content %}
-<div class="min-h-screen bg-gray-100 py-10 px-4">
-    <div class="max-w-5xl mx-auto">
 
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">История заказов</h1>
-            <p class="text-gray-500 text-sm">Все ваши покупки в одном месте</p>
+<div class="min-h-screen bg-gray-100 py-[40px] px-[20px]">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-[32px]">
+      <h1 class="text-[32px] font-semibold text-gray-800">
+        История заказов
+      </h1>
+      <p class="text-gray-500 mt-[6px]">
+        Все ваши покупки в одном месте
+      </p>
+    </div>
+
+    {% for order in orders %}
+    <div class="bg-white rounded-[20px] shadow-md mb-[24px] overflow-hidden">
+
+      <!-- Order header -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between
+                  px-[24px] py-[16px] border-b bg-gray-50">
+
+        <div>
+          <h2 class="text-[18px] font-semibold text-gray-800">
+            Заказ №{{ order.id }}
+          </h2>
+          <p class="text-[14px] text-gray-500">
+            {{ order.created_at|date:"d.m.Y H:i" }}
+          </p>
         </div>
 
-        {% for order in orders %}
-        <div class="bg-white rounded-2xl shadow-md mb-6 overflow-hidden">
+      </div>
 
-            <!-- Order header -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between
-                        px-6 py-4 border-b bg-gray-50">
-                <div>
-                    <h2 class="text-lg font-semibold text-gray-800">
-                        Заказ №{{ order.id }}
-                    </h2>
-                    <p class="text-sm text-gray-500">
-                        {{ order.created_at|date:"d.m.Y H:i" }}
-                    </p>
-                </div>
+      <!-- Items -->
+      <div class="px-[24px] py-[16px]">
+        <ul class="divide-y divide-gray-100">
+          {% for item in order.items.all %}
+          <li class="py-[12px] flex justify-between text-[15px]">
 
-                <!-- Статус заказа -->
-                <span class="mt-2 sm:mt-0 inline-flex items-center px-3 py-1
-                             rounded-full text-sm font-medium
-                             {% if order.status == 'completed' %}
-                                bg-green-100 text-green-700
-                             {% elif order.status == 'processing' %}
-                                bg-yellow-100 text-yellow-700
-                             {% elif order.status == 'cancelled' %}
-                                bg-red-100 text-red-700
-                             {% else %}
-                                bg-gray-200 text-gray-700
-                             {% endif %}">
-                    {{ order.get_status_display }}
-                </span>
+            <div class="text-gray-700">
+              {{ item.product.name }}
+              <span class="text-gray-400">× {{ item.quantity }}</span>
             </div>
 
-            <!-- Items -->
-            <div class="px-6 py-4">
-                <ul class="divide-y">
-                    {% for item in order.items.all %}
-                    <li class="py-3 flex justify-between text-sm">
-                        <div class="text-gray-700">
-                            {{ item.product.name }}
-                            <span class="text-gray-400">× {{ item.quantity }}</span>
-                        </div>
-                        <div class="font-medium text-gray-800">
-                            {{ item.get_total_price }} ₽
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+            <div class="font-medium text-gray-800">
+              {{ item.get_total_price }} ₽
             </div>
 
-            <!-- Footer -->
-            <div class="px-6 py-4 border-t flex flex-col sm:flex-row
-                        sm:items-center sm:justify-between bg-gray-50">
-                <p class="text-gray-600 text-sm">
-                    Способ оплаты: <span class="font-medium">{{ order.payment_method }}</span>
-                </p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-                <p class="text-lg font-semibold text-gray-800 mt-2 sm:mt-0">
-                    Итого:
-                    <span class="text-[#00BEA2]">
-                        {{ order.get_total_cost }} ₽
-                    </span>
-                </p>
-            </div>
-        </div>
-        {% empty %}
-        <div class="bg-white rounded-2xl shadow p-8 text-center">
-            <p class="text-gray-500">У вас пока нет заказов</p>
-            <a href="{% url 'categories' %}"
-               class="inline-block mt-4 px-6 py-3 rounded-xl
-                      bg-[#00BEA2] text-white hover:bg-[#05B197] transition">
-                Перейти в магазин
-            </a>
-        </div>
-        {% endfor %}
+      <!-- Footer -->
+      <div class="px-[24px] py-[16px]
+                  border-t bg-gray-50
+                  flex flex-col sm:flex-row
+                  sm:items-center sm:justify-between">
+
+        <p class="text-[14px] text-gray-600">
+          Способ оплаты: Банковская карта
+
+        </p>
+
+        <p class="text-[18px] font-semibold text-gray-800 mt-[10px] sm:mt-0">
+          Итого:
+          <span class="text-[#00BEA2]">
+            {{ order.get_total_cost }} ₽
+          </span>
+        </p>
+
+      </div>
+    </div>
+
+    {% empty %}
+
+    <!-- Empty state -->
+    <div class="bg-white rounded-[20px] shadow-md p-[48px] text-center">
+
+      <p class="text-gray-500 text-[18px] mb-[24px]">
+        У вас пока нет заказов
+      </p>
+
+      <a href="{% url 'categories' %}"
+         class="inline-flex items-center justify-center
+                w-[220px] h-[56px]
+                rounded-full
+                bg-[#00BEA2] text-white font-semibold
+                hover:bg-[#05B197]
+                transition shadow-md">
+        Перейти в каталог
+      </a>
 
     </div>
+
+    {% endfor %}
+
+  </div>
 </div>
+
 {% endblock %}
+

@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+<div class="max-w-7xl mx-auto px-4 py-16">
+
+  <!-- Title -->
+  <h1 class="text-4xl font-semibold text-gray-900 mb-12 text-center">
+    Контакты
+  </h1>
+
+  <!-- CONTACT ROW -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16 text-center">
+
+    <!-- Phones -->
+    <div>
+      <div class="text-3xl mb-3 text-[#00BEA2]">📞</div>
+      <h3 class="font-semibold text-gray-900 mb-1">Телефоны</h3>
+      <p class="text-gray-600">8 800-222-34-60</p>
+      <p class="text-gray-600">+7 (3452) 60-88-14</p>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <div class="text-3xl mb-3 text-[#00BEA2]">✉️</div>
+      <h3 class="font-semibold text-gray-900 mb-1">E-mail</h3>
+      <p class="text-gray-600">info@masterfarm1.ru</p>
+    </div>
+
+    <!-- Address -->
+    <div>
+      <div class="text-3xl mb-3 text-[#00BEA2]">📍</div>
+      <h3 class="font-semibold text-gray-900 mb-1">Адрес</h3>
+      <p class="text-gray-600">
+        г. Тюмень, ул. Самарцева, 3
+      </p>
+      <a href="https://yandex.ru/maps/?text=Тюмень ул. Самарцева 3"
+         target="_blank"
+         class="text-sm text-[#00BEA2] hover:underline">
+        Открыть на Яндекс.Карте
+      </a>
+    </div>
+
+    <!-- Work time -->
+    <div>
+      <div class="text-3xl mb-3 text-[#00BEA2]">🕒</div>
+      <h3 class="font-semibold text-gray-900 mb-1">Режим работы</h3>
+      <p class="text-gray-600">Пн – Пт: 9:00 – 18:00</p>
+      <p class="text-gray-600">Сб – Вс: выходные</p>
+    </div>
+
+  </div>
+
+  <!-- MAP -->
+  <div class="rounded-3xl overflow-hidden shadow-sm">
+    <div id="map" class="w-full h-[600px]"></div>
+  </div>
+
+</div>
+
+<script>
+  ymaps.ready(function () {
+    var geocoder = ymaps.geocode('Тюмень, ул. Самарцева, 3');
+
+    geocoder.then(function (res) {
+      var firstGeoObject = res.geoObjects.get(0);
+      var coords = firstGeoObject.geometry.getCoordinates();
+
+      var map = new ymaps.Map('map', {
+        center: coords,
+        zoom: 16,
+        controls: ['zoomControl']
+      });
+
+      var placemark = new ymaps.Placemark(
+        coords,
+        {
+          balloonContent: `
+            <strong>МастерФарм</strong><br>
+            Тюмень, ул. Самарцева, 3<br>
+            📞 8 800-222-34-60
+          `
+        },
+        {
+          preset: 'islands#greenIcon'
+        }
+      );
+
+      map.geoObjects.add(placemark);
+      map.behaviors.disable('scrollZoom'); // Отключаем скролл для удобства
+    });
+  });
+</script>
+
+{% endblock %}
