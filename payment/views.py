@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from orders.models import Order  # ваша модель заказа
+from orders.models import Order  #  модель заказа
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 

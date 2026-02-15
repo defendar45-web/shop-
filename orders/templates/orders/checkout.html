@@ -7,34 +7,24 @@
 
     <!-- Header -->
     <div class="mb-[30px]">
-      <h1 class="text-[32px] font-semibold text-gray-800">
-        Оформление заказа
-      </h1>
-      <p class="text-gray-500 mt-[6px]">
-        Введите данные доставки и проверьте заказ
-      </p>
+      <h1 class="text-[32px] font-semibold text-gray-800">Оформление заказа</h1>
+      <p class="text-gray-500 mt-[6px]">Введите данные доставки и проверьте заказ</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
 
       <!-- LEFT: FORM -->
-      <form method="POST"
-            class="bg-white rounded-[20px] shadow-md p-[24px] space-y-[20px]">
+      <form method="POST" class="bg-white rounded-[20px] shadow-md p-[24px] space-y-[20px]">
         {% csrf_token %}
 
-        <h2 class="text-[22px] font-semibold text-gray-800">
-          Данные доставки
-        </h2>
+        <h2 class="text-[22px] font-semibold text-gray-800">Данные доставки</h2>
 
         <!-- Name -->
         <div>
           <label class="text-sm text-gray-600">Имя</label>
           <input name="name" required
-                 class="mt-[6px] w-full rounded-[15px]
-                        border border-gray-300 px-[14px] py-[12px]
-                        focus:border-[#00BEA2]
-                        focus:ring-2 focus:ring-[#00BEA2]/20
-                        outline-none transition">
+                 oninput="this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё\s]/g,'')"
+                 class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
         </div>
 
         <!-- City / Street -->
@@ -42,21 +32,15 @@
           <div>
             <label class="text-sm text-gray-600">Город</label>
             <input name="city" required
-                   class="mt-[6px] w-full rounded-[15px]
-                          border border-gray-300 px-[14px] py-[12px]
-                          focus:border-[#00BEA2]
-                          focus:ring-2 focus:ring-[#00BEA2]/20
-                          outline-none transition">
+                   oninput="this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё\s]/g,'')"
+                   class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
           </div>
 
           <div>
             <label class="text-sm text-gray-600">Улица</label>
             <input name="street" required
-                   class="mt-[6px] w-full rounded-[15px]
-                          border border-gray-300 px-[14px] py-[12px]
-                          focus:border-[#00BEA2]
-                          focus:ring-2 focus:ring-[#00BEA2]/20
-                          outline-none transition">
+                   oninput="this.value = this.value.replace(/[^A-Za-zА-Яа-яЁё\s]/g,'')"
+                   class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
           </div>
         </div>
 
@@ -64,97 +48,84 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-[16px]">
           <div>
             <label class="text-sm text-gray-600">Дом</label>
-            <input name="house_number" required
-                   class="mt-[6px] w-full rounded-[15px]
-                          border border-gray-300 px-[14px] py-[12px]
-                          focus:border-[#00BEA2]
-                          focus:ring-2 focus:ring-[#00BEA2]/20
-                          outline-none transition">
+            <input name="house_number" required type="number"
+                   class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
           </div>
 
           <div>
             <label class="text-sm text-gray-600">Этаж</label>
-            <input type="number" name="floor"
-                   class="mt-[6px] w-full rounded-[15px]
-                          border border-gray-300 px-[14px] py-[12px]
-                          focus:border-[#00BEA2]
-                          focus:ring-2 focus:ring-[#00BEA2]/20
-                          outline-none transition">
+            <input name="floor" type="number"
+                   class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
           </div>
         </div>
 
         <!-- Phone -->
         <div>
           <label class="text-sm text-gray-600">Телефон</label>
-          <input name="phone_number" required
-                 class="mt-[6px] w-full rounded-[15px]
-                        border border-gray-300 px-[14px] py-[12px]
-                        focus:border-[#00BEA2]
-                        focus:ring-2 focus:ring-[#00BEA2]/20
-                        outline-none transition">
+          <input type="tel" name="phone_number" required
+                 id="phone_number" placeholder="+7 (___) ___-__-__" maxlength="18"
+                 class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
         </div>
+
+        <!-- Скрипт маски телефона -->
+        <script>
+          const phoneInput = document.getElementById('phone_number');
+          phoneInput.addEventListener('input', function(e) {
+            let x = this.value.replace(/\D/g, '');
+            if(x.startsWith('8')) x = '7' + x.slice(1);
+            if(x.length > 11) x = x.slice(0,11);
+
+            let formatted = '+';
+            if(x.length > 0) formatted += x[0];
+            if(x.length > 1) formatted += ' (' + x.slice(1,4);
+            if(x.length >= 4) formatted += ') ' + x.slice(4,7);
+            if(x.length >= 7) formatted += '-' + x.slice(7,9);
+            if(x.length >= 9) formatted += '-' + x.slice(9,11);
+
+            this.value = formatted;
+          });
+        </script>
 
         <!-- Email -->
         <div>
           <label class="text-sm text-gray-600">Email</label>
-          <input type="email" name="email" required
-                 class="mt-[6px] w-full rounded-[15px]
-                        border border-gray-300 px-[14px] py-[12px]
-                        focus:border-[#00BEA2]
-                        focus:ring-2 focus:ring-[#00BEA2]/20
-                        outline-none transition">
+          <input type="email" name="email" required placeholder="example@mail.com"
+                 class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
         </div>
 
-        <!-- Submit -->
+         <!-- Submit -->
         <button type="submit"
                 class="w-full mt-[10px] py-[14px]
                        rounded-[15px]
                        bg-[#00BEA2] text-white font-semibold
                        hover:bg-[#05B197]
                        transition shadow-md">
-          🛒 Оформить заказ
+           Оформить заказ
         </button>
       </form>
 
       <!-- RIGHT: SUMMARY -->
       <div class="bg-white rounded-[20px] shadow-md p-[24px] h-fit">
-
-        <h2 class="text-[22px] font-semibold text-gray-800 mb-[20px]">
-          Ваш заказ
-        </h2>
+        <h2 class="text-[22px] font-semibold text-gray-800 mb-[20px]">Ваш заказ</h2>
 
         <ul class="space-y-[16px]">
           {% for item in cart_items %}
           <li class="flex items-center justify-between">
-
             <div class="flex items-center gap-[12px]">
-              <img src="{{ item.product.get_image }}"
-                   class="w-[56px] h-[56px] rounded-[12px] object-cover">
-
-              <div>
-                <p class="font-medium text-gray-800">
+              <img src="{{ item.product.get_image }}" class="w-[56px] h-[56px] rounded-[12px] object-cover">
+              <div class="max-w-[250px]">
+                <p class="font-medium text-gray-800 truncate" title="{{ item.product.name }}">
                   {{ item.product.name }}
                 </p>
-                <p class="text-sm text-gray-500">
-                  {{ item.product.price }} ₽
-                </p>
+                <p class="text-sm text-gray-500">{{ item.product.price }} ₽</p>
               </div>
             </div>
-
-            <span class="font-semibold text-gray-800">
-              {{ item.get_total_price }} ₽
-            </span>
-
+            <span class="font-semibold text-gray-800">{{ item.get_total_price }} ₽</span>
           </li>
           {% endfor %}
         </ul>
 
         <div class="border-t mt-[20px] pt-[16px] space-y-[8px] text-sm">
-          <div class="flex justify-between text-gray-600">
-            <span>Подытог</span>
-            <span>{{ total_price }} ₽</span>
-          </div>
-
           <div class="flex justify-between text-gray-600">
             <span>Доставка</span>
             <span class="text-[#00BEA2] font-medium">Бесплатно</span>
@@ -165,7 +136,6 @@
             <span>{{ total_price }} ₽</span>
           </div>
         </div>
-
       </div>
 
     </div>
@@ -173,4 +143,3 @@
 </div>
 
 {% endblock %}
-

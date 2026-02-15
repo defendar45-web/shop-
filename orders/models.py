@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db import models
 from django.conf import settings
 
@@ -14,6 +16,7 @@ class Order(models.Model):
     email = models.EmailField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
+    status = models.CharField(max_length=20, default='pending')  # pending, paid, cancelled
 
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(args, kwargs)

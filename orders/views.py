@@ -16,6 +16,8 @@ def checkout(request):
         phone_number = request.POST['phone_number']
         email = request.POST['email']
 
+
+
         order = Order.objects.create(
             user=request.user,
             name=name,
@@ -40,12 +42,13 @@ def checkout(request):
         })
 
 
-
     total_price = sum(item.get_total_price() for item in cart_items)
     return render(request, "orders/checkout.html", {
         "cart_items": cart_items,
         "total_price": total_price
     })
+
+
 
 def order_history(request):
 
@@ -55,3 +58,4 @@ def order_history(request):
         'orders': orders,
     }
     return render(request, 'orders/order_history.html', context)
+

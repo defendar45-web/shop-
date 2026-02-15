@@ -76,54 +76,67 @@ def profile_edit(request):
     user = request.user
 
     if request.method == 'POST':
+
+        # --- Сохранение профиля ---
         if 'profile_submit' in request.POST:
-            first_name = request.POST['firstname']
-            if first_name:
+            first_name = request.POST.get('firstname', '').strip()
+            last_name = request.POST.get('lastname', '').strip()
+            email = request.POST.get('email', '').strip()
+            address = request.POST.get('address', '').strip()
+
+            updated = False
+
+            if first_name and first_name != user.first_name:
                 user.first_name = first_name
+                updated = True
 
-            last_name = request.POST['lastname']
-            if last_name:
+            if last_name and last_name != user.last_name:
                 user.last_name = last_name
+                updated = True
 
-            email = request.POST['email']
-            if email:
+            if email and email != user.email:
                 user.email = email
+                updated = True
 
-            address = request.POST['address']
-            if address:
+            if hasattr(user, 'address') and address != user.address:
                 user.address = address
+                updated = True
 
-            user.save()
+            if updated:
+                user.save()
+                messages.success(request, "Профиль успешно обновлен")
+            else:
+                messages.info(request, "Изменений не обнаружено")
 
-            return redirect('profile')
-
+        # --- Изменение пароля ---
         elif 'password_submit' in request.POST:
-            current_password = request.POST.get('current_password', '')
-            new_password = request.POST.get('new_password', '')
-            confirm_password = request.POST.get('confirm_password', '')
+            current_password = request.POST.get('current_password', '').strip()
+            new_password = request.POST.get('new_password', '').strip()
+            confirm_password = request.POST.get('confirm_password', '').strip()
 
             if not all([current_password, new_password, confirm_password]):
                 messages.error(request, "Заполните все поля")
             elif not user.check_password(current_password):
                 messages.error(request, "Неверный текущий пароль")
             elif new_password != confirm_password:
-                messages.error(request, "Новый пароль и пароль подтверждения не совпадают")
+                messages.error(request, "Новый пароль и подтверждение не совпадают")
             elif len(new_password) < 8:
                 messages.error(request, "Пароль должен быть не менее 8 символов")
             else:
                 user.set_password(new_password)
                 user.save()
-                update_session_auth_hash(request, user)
+                update_session_auth_hash(request, user)  # сохраняем сессию
                 messages.success(request, "Пароль успешно изменен")
-                return redirect('profile')
 
+    # --- Рендер страницы с актуальными данными ---
     return render(request, 'users/profile_edit.html', context={
         'username': user.username,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
-        'address': user.address,
+        'address': getattr(user, 'address', ''),
     })
+
 
 @login_required (login_url='login')
 def toggle_favorite(request, product_id):
