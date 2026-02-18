@@ -13,4 +13,12 @@
 {% block button %}
 Регистрация
 {% endblock %}
-
+{% block extra_action %}
+<p class="text-sm text-gray-500 mt-4 text-center">
+   Уже зарегистрированы?
+  <a href="{% url 'login' %}"
+     class="text-[#00BEA2] font-medium hover:underline">
+    Войти
+  </a>
+</p>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import get_object_or_404, render
 
 
 class Promo(models.Model):
@@ -10,3 +11,6 @@ class Promo(models.Model):
             return self.image.url
         return "/static/icons/no_image.png"
 
+def promo_image(request, promo_id):
+    promo = get_object_or_404(Promo, id=promo_id)
+    return render(request, 'promotion/promo_image.html', {'promo': promo})

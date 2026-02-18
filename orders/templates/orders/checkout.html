@@ -14,7 +14,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
 
       <!-- LEFT: FORM -->
-      <form method="POST" class="bg-white rounded-[20px] shadow-md p-[24px] space-y-[20px]">
+      <form method="POST" class="bg-white rounded-[20px] shadow-md p-[24px] space-y-[20px]" id="checkoutForm">
         {% csrf_token %}
 
         <h2 class="text-[22px] font-semibold text-gray-800">Данные доставки</h2>
@@ -54,7 +54,7 @@
 
           <div>
             <label class="text-sm text-gray-600">Этаж</label>
-            <input name="floor" type="number"
+            <input name="floor" required type="number"
                    class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
           </div>
         </div>
@@ -67,25 +67,6 @@
                  class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
         </div>
 
-        <!-- Скрипт маски телефона -->
-        <script>
-          const phoneInput = document.getElementById('phone_number');
-          phoneInput.addEventListener('input', function(e) {
-            let x = this.value.replace(/\D/g, '');
-            if(x.startsWith('8')) x = '7' + x.slice(1);
-            if(x.length > 11) x = x.slice(0,11);
-
-            let formatted = '+';
-            if(x.length > 0) formatted += x[0];
-            if(x.length > 1) formatted += ' (' + x.slice(1,4);
-            if(x.length >= 4) formatted += ') ' + x.slice(4,7);
-            if(x.length >= 7) formatted += '-' + x.slice(7,9);
-            if(x.length >= 9) formatted += '-' + x.slice(9,11);
-
-            this.value = formatted;
-          });
-        </script>
-
         <!-- Email -->
         <div>
           <label class="text-sm text-gray-600">Email</label>
@@ -93,7 +74,7 @@
                  class="mt-[6px] w-full rounded-[15px] border border-gray-300 px-[14px] py-[12px] focus:border-[#00BEA2] focus:ring-2 focus:ring-[#00BEA2]/20 outline-none transition">
         </div>
 
-         <!-- Submit -->
+        <!-- Submit -->
         <button type="submit"
                 class="w-full mt-[10px] py-[14px]
                        rounded-[15px]
@@ -141,5 +122,44 @@
     </div>
   </div>
 </div>
+
+<!-- JS Проверка всех обязательных полей -->
+<script>
+  // Маска телефона
+  const phoneInput = document.getElementById('phone_number');
+  phoneInput.addEventListener('input', function(e) {
+    let x = this.value.replace(/\D/g, '');
+    if(x.startsWith('8')) x = '7' + x.slice(1);
+    if(x.length > 11) x = x.slice(0,11);
+
+    let formatted = '+';
+    if(x.length > 0) formatted += x[0];
+    if(x.length > 1) formatted += ' (' + x.slice(1,4);
+    if(x.length >= 4) formatted += ') ' + x.slice(4,7);
+    if(x.length >= 7) formatted += '-' + x.slice(7,9);
+    if(x.length >= 9) formatted += '-' + x.slice(9,11);
+
+    this.value = formatted;
+  });
+
+  // Проверка обязательных полей перед отправкой формы
+  const checkoutForm = document.getElementById('checkoutForm');
+  checkoutForm.addEventListener('submit', function(e) {
+    let valid = true;
+    checkoutForm.querySelectorAll('input[required]').forEach(input => {
+      if (!input.value.trim()) {
+        valid = false;
+        input.classList.add('border-red-500');
+      } else {
+        input.classList.remove('border-red-500');
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault(); // не отправляем форму
+      alert('Пожалуйста, заполните все обязательные поля!');
+    }
+  });
+</script>
 
 {% endblock %}

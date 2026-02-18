@@ -2,25 +2,33 @@
 
 {% block content %}
 
-    <div class="max-w-7xl mx-auto px-4 py-8">
+<div class="max-w-7xl mx-auto px-4 py-8">
 
-    <h1 class="text-3xl font-bold mb-8">Акции</h1>
+    <!-- Title -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Акции
+        </h1>
+    </div>
 
+    <!-- Promotions Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         {% for item in promotion %}
-            <div class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden">
+            <div class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden group">
 
-                <!-- Картинка акции -->
-                <img
-                    src="{{ item.get_image }}"
-                    alt="{{ item.name }}"
-                    class="w-full h-56 object-cover"
-                >
+                <!-- Promotion Image -->
+                <a href="{% url 'promo_image' item.id %}" class="block overflow-hidden">
+                    <img
+                        src="{{ item.get_image }}"
+                        alt="{{ item.name }}"
+                        class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
+                    >
+                </a>
 
-                <!-- Название -->
+                <!-- Name -->
                 <div class="p-5 text-center">
-                    <h3 class="text-lg font-semibold">
+                    <h3 class="text-lg font-semibold text-gray-700">
                         {{ item.name }}
                     </h3>
                 </div>
@@ -33,4 +41,5 @@
     </div>
 
 </div>
+
 {% endblock %}

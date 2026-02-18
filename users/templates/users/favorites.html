@@ -5,12 +5,12 @@
   <div class="max-w-7xl mx-auto">
 
     <!-- Page Title -->
-    <div class="mb-10">
+    <div class="mb-10 text-left">
       <h1 class="text-4xl font-semibold text-gray-900">
         Избранное
       </h1>
       <p class="text-gray-500 mt-2">
-        Товары, которые вы добавили ❤️
+        Товары, которые вы добавили
       </p>
     </div>
 
@@ -89,26 +89,24 @@
     {% else %}
 
     <!-- EMPTY FAVORITES -->
-    <div class="p-16 text-center">
+    <div class="mt-12 p-16 text-center">
 
-      <div class="text-6xl mb-6">💔</div>
-
-      <h2 class="text-2xl font-semibold text-gray-900 mb-3">
+      <!-- Заголовок -->
+      <h2 class="text-3xl font-bold text-gray-800 mb-3">
         В избранном пока пусто
       </h2>
 
+      <!-- Описание -->
       <p class="text-gray-500 mb-8 max-w-md mx-auto">
         Добавляйте товары в избранное, чтобы не потерять их.
       </p>
 
+      <!-- Кнопка возврата -->
       <div class="flex justify-center">
         <a href="{% url 'categories' %}"
-           class="inline-block h-[44px] px-[30px]
-                  rounded-full
-                  bg-[#00BEA2] text-white
-                  text-[14px] font-semibold
-                  hover:bg-[#05B197]
-                  transition shadow-sm">
+           class="inline-block h-[44px] px-[32px] rounded-full
+                  bg-[#00BEA2] text-white font-semibold text-[14px]
+                  hover:bg-[#05B197] transition shadow-md">
           Перейти в каталог
         </a>
       </div>
@@ -117,7 +115,7 @@
 
     {% endif %}
 
-  </div>
+
 </div>
 
 {% endblock %}

@@ -5,11 +5,29 @@
 <div class="min-h-screen bg-gray-100 py-12 px-4">
     <div class="max-w-5xl mx-auto rounded-3xl shadow-lg overflow-hidden bg-gray-50">
 
-        <!-- Header -->
-        <div class="px-8 py-6 border-b border-gray-200">
-            <h1 class="text-3xl font-bold text-gray-900">Настройки профиля</h1>
-            <p class="text-gray-500 mt-1">Управляйте личными данными и безопасностью</p>
-        </div>
+       <div class="px-8 py-6 border-b border-gray-200 flex items-center justify-between">
+
+    <!-- Заголовок -->
+    <div>
+        <h1 class="text-3xl font-bold text-gray-900">Настройки профиля</h1>
+        <p class="text-gray-500 mt-1">Управляйте личными данными и безопасностью</p>
+    </div>
+
+    <!-- Кнопка назад -->
+    <a href="{% url 'profile' %}"
+       class="flex items-center gap-2 px-4 py-2 rounded-full
+              bg-white border border-gray-300
+              text-gray-700 font-medium
+              hover:bg-gray-50 hover:shadow transition-shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 19l-7-7 7-7" />
+        </svg>
+        Назад
+    </a>
+
+</div>
 
         <!-- Messages -->
         {% if messages %}

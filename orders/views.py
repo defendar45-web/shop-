@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render
 
 from cart.models import CartItem
 from orders.models import Order, OrderItem
-
 
 def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
@@ -47,8 +48,6 @@ def checkout(request):
         "cart_items": cart_items,
         "total_price": total_price
     })
-
-
 
 def order_history(request):
 

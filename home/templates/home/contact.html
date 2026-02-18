@@ -53,45 +53,4 @@
 
   </div>
 
-  <!-- MAP -->
-  <div class="rounded-3xl overflow-hidden shadow-sm">
-    <div id="map" class="w-full h-[600px]"></div>
-  </div>
-
-</div>
-
-<script>
-  ymaps.ready(function () {
-    var geocoder = ymaps.geocode('Тюмень, ул. Самарцева, 3');
-
-    geocoder.then(function (res) {
-      var firstGeoObject = res.geoObjects.get(0);
-      var coords = firstGeoObject.geometry.getCoordinates();
-
-      var map = new ymaps.Map('map', {
-        center: coords,
-        zoom: 16,
-        controls: ['zoomControl']
-      });
-
-      var placemark = new ymaps.Placemark(
-        coords,
-        {
-          balloonContent: `
-            <strong>МастерФарм</strong><br>
-            Тюмень, ул. Самарцева, 3<br>
-            📞 8 800-222-34-60
-          `
-        },
-        {
-          preset: 'islands#greenIcon'
-        }
-      );
-
-      map.geoObjects.add(placemark);
-      map.behaviors.disable('scrollZoom'); // Отключаем скролл для удобства
-    });
-  });
-</script>
-
 {% endblock %}

@@ -1,12 +1,15 @@
-from typing import Any
+
 
 from django.db import models
 from django.conf import settings
+from django.db.models import Max
 
 from products.models import Product
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_order_number = models.PositiveIntegerField(blank=True, null=True)
+
     name = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
@@ -16,14 +19,30 @@ class Order(models.Model):
     email = models.EmailField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, default='pending')  # pending, paid, cancelled
 
-    def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(args, kwargs)
-        self.total_amount = None
+
+
+
+    class Meta:
+        unique_together = ('user', 'user_order_number')
+        ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        # Если заказ создаётся впервые
+        if not self.pk:
+            last_number = Order.objects.filter(
+                user=self.user
+            ).aggregate(
+                Max('user_order_number')
+            )['user_order_number__max']
+
+            self.user_order_number = 1 if last_number is None else last_number + 1
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+        return f"Заказ №{self.user_order_number} пользователя {self.user.username}"
+
 
     def get_total_cost(self):
         return sum(item.get_total_price() for item in self.items.all())
